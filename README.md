@@ -16,25 +16,28 @@ The following **required** functionality is complete:
 The following **optional** features are implemented:
 
 - [X] User sees an error message when there's a networking error.
-- [ ] Movies are displayed using a CollectionView instead of a TableView.
-- [ ] User can search for a movie.
-- [ ] All images fade in as they are loading.
-- [ ] Customize the UI.
+- [X] Movies are displayed using a CollectionView instead of a TableView.
+- [X] User can search for a movie.
+- [X] All images fade in as they are loading.
+- [X] Customize the UI.
 
 The following **additional** features are implemented:
 
-- [ ] List anything else that you can get done to improve the app functionality!
+- [X] Add a launch screen
+- [X] Implment searchBarSearchButtonClicked function
+- [X] Make ImageViews with rounded corners
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1. 
-2. 
+1. Use UISearchController instead of UISearchBar, otherwise you won't be able to place the search bar in 
+   navigation bar
+2. Use extensions to implement protocols
 
 ## Video Walkthrough 
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='http://i.imgur.com/iywoLVn.gif?1' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 

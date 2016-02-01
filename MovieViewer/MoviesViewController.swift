@@ -12,7 +12,6 @@ import MBProgressHUD
 
 class MoviesViewController: UIViewController {
     
-    
     @IBOutlet weak var warningView: UIView!
     @IBOutlet weak var warningButton: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -201,6 +200,7 @@ extension MoviesViewController: UICollectionViewDataSource, UICollectionViewDele
             failure: { (imageRequest, imageReponse, error) -> Void in
                 cell.posterView.image = UIImage(named: "poster-not-available")
             })
+            cell.posterView.layer.cornerRadius = 5
         }
         setCellImage()
         
