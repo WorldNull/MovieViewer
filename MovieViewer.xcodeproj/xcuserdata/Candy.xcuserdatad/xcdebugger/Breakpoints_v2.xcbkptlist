@@ -26,7 +26,7 @@
                   moduleName = "MovieViewer"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Candy/Downloads/MovieViewer/MovieViewer/MoviesViewController.swift"
-                  timestampString = "475828856.047176"
+                  timestampString = "476032232.371099"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "0"
@@ -41,7 +41,7 @@
                   moduleName = "MovieViewer"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Candy/Downloads/MovieViewer/MovieViewer/MoviesViewController.swift"
-                  timestampString = "475828856.0477"
+                  timestampString = "476032232.372268"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "0"
@@ -56,7 +56,7 @@
                   moduleName = "MovieViewer"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Candy/Downloads/MovieViewer/MovieViewer/MoviesViewController.swift"
-                  timestampString = "475828856.047853"
+                  timestampString = "476032232.372561"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "0"
@@ -71,11 +71,11 @@
                   moduleName = "MovieViewer"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Candy/Downloads/MovieViewer/MovieViewer/MoviesViewController.swift"
-                  timestampString = "475828856.048001"
+                  timestampString = "476032232.37282"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "16"
-                  endingLineNumber = "16"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
                   offsetFromSymbolStart = "72">
                </Location>
                <Location
@@ -86,11 +86,11 @@
                   moduleName = "MovieViewer"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Candy/Downloads/MovieViewer/MovieViewer/MoviesViewController.swift"
-                  timestampString = "475828856.048154"
+                  timestampString = "476032232.373057"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "16"
-                  endingLineNumber = "16"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
                   offsetFromSymbolStart = "31">
                </Location>
             </Locations>

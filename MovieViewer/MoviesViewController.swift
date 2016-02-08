@@ -16,20 +16,93 @@ class MoviesViewController: UIViewController {
     @IBOutlet weak var warningButton: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
-    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var navItem: UINavigationItem!
+    
     
     var movies: [NSDictionary]?
+    var showMovies: displayMovies!
+    var lol = 10
     let apiKey = "e071284ddb082754f0ccac86ce389c26"
     var playingUrl: NSURL!
     var genreUrl: NSURL!
     let refreshControl = UIRefreshControl()
     var movieTask: NSURLSessionDataTask!
     var genreTask: NSURLSessionDataTask!
+    var navLabel: UILabel!
     var genreDictionary = [12: "Adventure", 10749: "Romance", 878: "Science Fiction", 14: "Fantasy", 27: "Horror", 9648: "Mystery", 99: "Documentary", 16: "Animation", 10770: "TV Movie", 10402: "Music", 28: "Action", 18: "Drama", 53: "Thriller", 10769: "Foreign", 36: "History", 10751: "Family", 10752: "War", 35: "Comedy", 80: "Crime"]
     var filteredMovies: [NSDictionary]?
+    var searchController: UISearchController!
     
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // remove the line below
+        filteredMovies = showMovies.displayMovies
+                
+        // Initializing with searchResultsController set to nil means that
+        // searchController will use this view controller to display the search results
+        searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self
+        
+        
+        // If we are using this same view controller to present the results
+        // dimming it out wouldn't make sense.  Should set probably only set
+        // this to yes if using another controller to display the search results.
+        searchController.dimsBackgroundDuringPresentation = false
+        searchController.hidesNavigationBarDuringPresentation = false
+        
+        searchController.searchBar.sizeToFit()
+        let searchBar = searchController.searchBar
+        searchBar.barStyle = UIBarStyle.Black
+        
+        for subView in searchBar.subviews
+        {
+            for subsubView in subView.subviews
+            {
+                if let textField = subsubView as? UITextField
+                {
+                    textField.attributedPlaceholder = NSAttributedString(string: NSLocalizedString("Search", comment: ""), attributes: [NSForegroundColorAttributeName: UIColor.orangeColor()])
+                    
+                    textField.textColor = UIColor.orangeColor()
+                }
+            }
+        }
+
+        navItem.titleView = searchBar
+        navigationController!.navigationBar.barTintColor = UIColor.blackColor()
+        
+        struct Static {
+            static var hideToolBar = false
+            static var pageNumber = 2
+        }
+        if Static.hideToolBar == true {
+            searchBar.setImage(UIImage(named: "searchImage"), forSearchBarIcon: UISearchBarIcon.Search, state: UIControlState.Normal)
+            
+            let pageNumber = "Page " + String(Static.pageNumber)
+            for subView in searchBar.subviews
+            {
+                for subsubView in subView.subviews
+                {
+                    if let textField = subsubView as? UITextField
+                    {
+                        textField.attributedPlaceholder = NSAttributedString(string: NSLocalizedString(pageNumber, comment: ""), attributes: [NSForegroundColorAttributeName: UIColor.orangeColor()])
+                        
+                        textField.textColor = UIColor.orangeColor()
+                    }
+                }
+            }
+            searchBar.userInteractionEnabled = false
+            Static.pageNumber++
+        } else {
+            Static.hideToolBar = true
+    
+        }
+        
+
+        
+        // Sets this view controller as presenting view controller for the search interface
+        definesPresentationContext = true
         
         // dynamically resize UICollection cells
         let width = (CGRectGetWidth(collectionView.frame) - CGFloat(24))/CGFloat(2)
@@ -42,7 +115,6 @@ class MoviesViewController: UIViewController {
         
         collectionView.dataSource = self
         collectionView.delegate = self
-        searchBar.delegate = self
         
         fetchMovies()
         movieTask.resume()
@@ -52,6 +124,7 @@ class MoviesViewController: UIViewController {
         collectionView.insertSubview(refreshControl, atIndex: 0)
         collectionView.alwaysBounceVertical = true
     }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -60,6 +133,7 @@ class MoviesViewController: UIViewController {
     
     // Make a HTTP request for movie data
     func fetchMovies() {
+        
         // Create the NSURLRequest (myRequest)
         let request = NSURLRequest(
             URL: playingUrl,
@@ -88,10 +162,10 @@ class MoviesViewController: UIViewController {
                         data, options:[]) as? NSDictionary {
                             
                             self.movies = responseDictionary["results"] as? [NSDictionary]
-                            self.filteredMovies = self.movies
+                            // self.filteredMovies = self.movies
                             
                             // Reload the tableView now that there is new data
-                            self.collectionView.reloadData()
+                            //self.collectionView.reloadData()
                             
                         
                     }
@@ -99,7 +173,6 @@ class MoviesViewController: UIViewController {
                     self.collectionView.hidden = true
                     self.warningView.hidden = false
                 }
-            
         })
     }
     
@@ -109,6 +182,7 @@ class MoviesViewController: UIViewController {
         // Tell the refreshControl to stop spinning
         refreshControl.endRefreshing()
         movieTask.resume()
+        self.presentViewController(PageViewController() as! UIViewController, animated: false, completion: nil)
         
     }
     
@@ -135,9 +209,14 @@ class MoviesViewController: UIViewController {
 extension MoviesViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     
-        if let movies = filteredMovies {
+        if var movies = filteredMovies {
+            //print(filteredMovies)
+            //print(movies.count)
+            //print("Please: \(showMovies.displayMovies)")
             return movies.count
         } else {
+            //print("omg")
+            //print("self.restorationIdentifier: \(self.restorationIdentifier)")
             return 0
         }
     }
@@ -186,14 +265,16 @@ extension MoviesViewController: UICollectionViewDataSource, UICollectionViewDele
                 
                 // imageResponse will be nil if the image is cached
                 if imageResponse != nil {
-                    print("Image was NOT cached, fade in image")
+                    
+                    // print("Image was NOT cached, fade in image")
                     cell.posterView.alpha = 0.0
                     cell.posterView.image = image
                     UIView.animateWithDuration(0.3, animations: { () -> Void in
                         cell.posterView.alpha = 1.0
                     })
                 } else {
-                    print("Image was cached so just update the image")
+                    
+                    //print("Image was cached so just update the image")
                     cell.posterView.image = image
                 }
             },
@@ -208,21 +289,10 @@ extension MoviesViewController: UICollectionViewDataSource, UICollectionViewDele
     }
 }
 
-// Implement UISearchBar Protocol
-extension MoviesViewController: UISearchBarDelegate {
-    
-    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-        
-        //When there is no text, filteredData is the same as the original data
-        if searchText.isEmpty {
-            filteredMovies = movies
-            print("I'm here")
-        } else {
-             // The user has entered text into the search box
-             // Use the filter method to iterate over all items in the data array
-             // For each item, return true if the item should be included and false if the
-             // item should NOT be included
-            filteredMovies = movies!.filter({(dataItem: NSDictionary) -> Bool in
+extension MoviesViewController: UISearchResultsUpdating {
+    func updateSearchResultsForSearchController(searchController: UISearchController) {
+        if let searchText = searchController.searchBar.text {
+            filteredMovies = searchText.isEmpty ? movies : movies!.filter({(dataItem: NSDictionary) -> Bool in
                 //If dataItem matches the searchText, return true to include it
                 let title = dataItem["title"] as! String
                 if title.rangeOfString(searchText, options: .CaseInsensitiveSearch) != nil {
@@ -233,27 +303,8 @@ extension MoviesViewController: UISearchBarDelegate {
             })
         }
         collectionView.reloadData()
+
     }
-    
-    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
-        self.searchBar.showsCancelButton = true
-    }
-    
-    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
-        searchBar.showsCancelButton = false
-        searchBar.text = ""
-        searchBar.resignFirstResponder()
-        filteredMovies = movies
-        collectionView.reloadData()
-    }
-    
-    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        searchBar.showsCancelButton = false
-        searchBar.text = ""
-        searchBar.resignFirstResponder()
-    }
-    
-    
 }
 
 
