@@ -27,6 +27,8 @@ class MoviesViewController: UIViewController {
     var genreTask: NSURLSessionDataTask!
     var genreDictionary = [12: "Adventure", 10749: "Romance", 878: "Science Fiction", 14: "Fantasy", 27: "Horror", 9648: "Mystery", 99: "Documentary", 16: "Animation", 10770: "TV Movie", 10402: "Music", 28: "Action", 18: "Drama", 53: "Thriller", 10769: "Foreign", 36: "History", 10751: "Family", 10752: "War", 35: "Comedy", 80: "Crime"]
     var filteredMovies: [NSDictionary]?
+    var endpoint: String!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +39,7 @@ class MoviesViewController: UIViewController {
         
         
         // create urls for playing and genre API requests
-        playingUrl = NSURL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=\(apiKey)")
+        playingUrl = NSURL(string: "https://api.themoviedb.org/3/movie/\(endpoint)?api_key=\(apiKey)")
         genreUrl = NSURL(string: "https://api.themoviedb.org/3/genre/movie/list?api_key=\(apiKey)")
         
         collectionView.dataSource = self
@@ -92,7 +94,7 @@ class MoviesViewController: UIViewController {
                             
                             // Reload the tableView now that there is new data
                             self.collectionView.reloadData()
-                            
+                                        
                         
                     }
                 } else {
@@ -119,15 +121,23 @@ class MoviesViewController: UIViewController {
         movieTask.resume()
     }
     
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        let cell = sender as! UICollectionViewCell
+        let indexPath = collectionView.indexPathForCell(cell)
+        
+        let movie = movies![indexPath!.row]
+        
+        let detailViewController = segue.destinationViewController as! DetailViewController
+        detailViewController.movie = movie
+        
     }
-    */
+    
 
 }
 
@@ -186,14 +196,14 @@ extension MoviesViewController: UICollectionViewDataSource, UICollectionViewDele
                 
                 // imageResponse will be nil if the image is cached
                 if imageResponse != nil {
-                    print("Image was NOT cached, fade in image")
+                    //print("Image was NOT cached, fade in image")
                     cell.posterView.alpha = 0.0
                     cell.posterView.image = image
                     UIView.animateWithDuration(0.3, animations: { () -> Void in
                         cell.posterView.alpha = 1.0
                     })
                 } else {
-                    print("Image was cached so just update the image")
+                    //print("Image was cached so just update the image")
                     cell.posterView.image = image
                 }
             },
@@ -203,6 +213,10 @@ extension MoviesViewController: UICollectionViewDataSource, UICollectionViewDele
             cell.posterView.layer.cornerRadius = 5
         }
         setCellImage()
+        
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = UIColor.redColor()
+        cell.selectedBackgroundView = backgroundView
         
         return cell
     }

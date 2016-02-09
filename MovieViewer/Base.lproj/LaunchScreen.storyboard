@@ -33,10 +33,10 @@
                                 <exclude reference="9zm-Pd-4QM"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="Zse-s0-Mri"/>
                                 <exclude reference="EAQ-Lg-IE9"/>
                                 <exclude reference="WIs-yC-dyW"/>
                                 <exclude reference="hq7-ES-Sih"/>
-                                <exclude reference="Zse-s0-Mri"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -44,10 +44,10 @@
                                 <include reference="9zm-Pd-4QM"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="Zse-s0-Mri"/>
                                 <include reference="EAQ-Lg-IE9"/>
                                 <include reference="WIs-yC-dyW"/>
                                 <include reference="hq7-ES-Sih"/>
-                                <include reference="Zse-s0-Mri"/>
                             </mask>
                         </variation>
                     </view>
