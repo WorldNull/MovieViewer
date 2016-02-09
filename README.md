@@ -44,6 +44,8 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 ## Notes
 
 Describe any challenges encountered while building the app.
+1. I spent too much time trying to implement advanced features
+2. Next time, I should focus on implementing the required features and easier features first, otherwise I would get nothing done.
 
 ## License
 
