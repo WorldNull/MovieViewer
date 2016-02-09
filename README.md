@@ -44,8 +44,6 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 ## Notes
 
 Describe any challenges encountered while building the app.
-1. I spent too much time trying to implement advanced features
-2. Next time, I should focus on implementing the required features and easier features first, otherwise I would get nothing done.
 
 ## License
 
@@ -88,8 +86,8 @@ The following **additional** features are implemented:
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1. 
-2. 
+1. 1. I spent too much time trying to implement advanced features
+2. Next time, I should focus on implementing the required features and easier features first, otherwise I would get nothing done.
 
 ## Video Walkthrough 
 
